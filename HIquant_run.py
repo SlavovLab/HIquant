@@ -18,13 +18,23 @@ from sklearn.ensemble import RandomForestRegressor
 import seaborn as sns
 os.getcwd()
 
+# Ed - adapted script for command line definition of input and output files
+# Note: script requires 1 input and 2 output files
+# Input: should be in the format: protein IDs, peptide sequence (or unique identifier), conditions 1:n
+# Output 1: Proteoform abundance in each condition
+# Output 2: Error and confidence measures for the proteoform inference
 
+print(f"HIquant input: {sys.argv[1]=}")
+print(f"HIquant output: {sys.argv[2]=}")
+print(f"HIquant error output: {sys.argv[3]=}")
+# Ed CMD line modification end
 
 print( 'Importing data from the directory below ...')
 st=time.time()
-#test_path = ts.test_set['TMT2_MQ_Phospho']
-#test_path = '/Users/chentianchi/Desktop/alex_all_proteoform_IL4_hiquant_input.txt'
-test_path = '/Users/chentianchi/Documents/Current Working/HIquant_application/unmodi_predict_modi_IL4/result/peptide_filtered/alex_hiquant_input_IL4/alex_all_proteoform_IL4_hiquant_input.txt'
+
+#test_path = '/Users/ed/Documents/GitHub/HIquant/edtestPAICS.txt'
+test_path = sys.argv[1]
+
 Mat_A , Mat_S, Mat_CC , Mat_nC, Dat_data, Dat_textdata, Dat_proteins, Data_isunique, Num_peptides, Num_proteins = hf.GetData(test_path)
 ed=time.time()
 print('Time:',ed-st)
@@ -288,9 +298,6 @@ P_overall_QP = np.concatenate(list(overall_error_expand_QP['QP'].values()))
 P_ratio_QP = np.concatenate(list(ratio_error_expand_QP['QP'].values()))
 P_corr_QP = np.concatenate(list(corr_QP['QP'].values()))
 
-
-
-
 # -----------*************************************************------------------------
 #                     -----------Inference-----------𝕴 | QP Solver | 𝕴--------
 # -----------*************************************************------------------------
@@ -301,32 +308,33 @@ P_corr_QP = np.concatenate(list(corr_QP['QP'].values()))
 forest = RandomForestRegressor(300)
 Model_oe = forest.fit(simulation_features_QP, P_overall_QP)
 P_overall_QP_predict = Model_oe.predict(feature_origin_QP)
-pd.DataFrame(P_overall_QP_predict).plot(kind='hist', bins = 100)
-plt.xlim([0,1])
-plt.show()
+#pd.DataFrame(P_overall_QP_predict).plot(kind='hist', bins = 100)
+#plt.xlim([0,1])  # Ed removed
+#plt.show()	  # Ed removed
 
 # Ratio_error
 forest = RandomForestRegressor(300)
 Model_re = forest.fit(simulation_features_QP, P_ratio_QP)
 P_ratio_QP_predict = Model_re.predict(feature_origin_QP)
-pd.DataFrame(P_ratio_QP_predict).plot(kind='hist', bins = 100)
-plt.xlim([0,1])
-plt.show()
+#pd.DataFrame(P_ratio_QP_predict).plot(kind='hist', bins = 100)
+#plt.xlim([0,1])   # Ed removed
+#plt.show()	   # Ed removed
 
 # Correlation
 forest = RandomForestRegressor(300)
 Model_corr = forest.fit(simulation_features_QP, P_corr_QP)
 P_corr_QP_predict = Model_corr.predict(feature_origin_QP)
-pd.DataFrame(P_corr_QP_predict).plot(kind='hist', bins = 100)
-plt.xlim([0,1])
-plt.show()
-
+#pd.DataFrame(P_corr_QP_predict).plot(kind='hist', bins = 100)
+#plt.xlim([0,1]) # Ed removed
+#plt.show() 	 # Ed removed
 
 
 # save prediction.csv to desktop
 fi = [dict(zip(cluster_protein_name[cc_i], QP_homo_P[cc_i])) for cc_i in  list(QP_homo_P.keys())]
 from collections import ChainMap
-pd.DataFrame(dict(ChainMap(*fi))).T.to_csv('~/Desktop/HIquant_predict_only_unmodi.csv')
+#pd.DataFrame(dict(ChainMap(*fi))).T.to_csv('/Users/ed/Documents/GitHub/HIquant/Results/HIquant_predict_only_unmodi.csv')
+pd.DataFrame(dict(ChainMap(*fi))).T.to_csv('/Users/ed/Documents/GitHub/HIquant/Results/Ed_PAICS.csv')
+pd.DataFrame(dict(ChainMap(*fi))).T.to_csv(sys.argv[2])
 
 
 # import pandas as pd
@@ -334,18 +342,22 @@ pd.DataFrame(dict(ChainMap(*fi))).T.to_csv('~/Desktop/HIquant_predict_only_unmod
 # pd.DataFrame(simulation_features_QP).plot(kind='hist')
 # pd.DataFrame({'Correlation': P_corr_QP, 'overall_error': P_overall_QP, 'Ratio_error': P_ratio_QP}).plot(kind='hist', bins = 20)
 
+#pd.DataFrame({'Correlation': P_corr_QP_predict, 'overall_error': P_overall_QP_predict, 'Ratio_error': P_ratio_QP_predict}).T.to_csv('/Users/ed/Documents/GitHub/HIquant/Results/Ed_PAICSError2.csv')
+
+pd.DataFrame({'Correlation': P_corr_QP_predict, 'overall_error': P_overall_QP_predict, 'Ratio_error': P_ratio_QP_predict}).T.to_csv(sys.argv[3])
 
 
+print( 'HIquant inference complete')
 
 #  Making plots
-sns.set(color_codes=True)
-sns.set_style("white")
-prediction = sns.distplot(P_overall_QP_predict, bins = 50, color="blue", label="Overall Error")
-prediction = sns.distplot(P_ratio_QP_predict, bins = 50, color="orange", label="Ratio Error")
-prediction = sns.distplot(P_corr_QP_predict, bins = 50, color="green", label="Correlation")
-plt.legend()
-plt.box(on=None)
-plt.title("HIquant Prediction_IL4(nf)")
-plt.show()
-figure = prediction.get_figure()
-figure.savefig('/Users/chentianchi/Documents/Current Working/HIquant_application/unmodi_predict_modi_IL4/result/HIquant_IL4_prediction_nofilter.png', dpi =400)
+#sns.set(color_codes=True)
+#sns.set_style("white")
+#prediction = sns.distplot(P_overall_QP_predict, bins = 50, color="blue", label="Overall Error")
+#prediction = sns.distplot(P_ratio_QP_predict, bins = 50, color="orange", label="Ratio Error")
+#prediction = sns.distplot(P_corr_QP_predict, bins = 50, color="green", label="Correlation")
+#plt.legend()
+#plt.box(on=None)
+#plt.title("HIquant Prediction_IL4(nf)")
+#plt.show()
+#figure = prediction.get_figure()
+#figure.savefig('/Users/ed/Documents/GitHub/HIquant/Results/MCPtest.png', dpi =400)
