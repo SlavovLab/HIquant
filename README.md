@@ -1,4 +1,4 @@
-# **HIquant**
+# HI*quant*
 ## Quantifying homologous proteins and proteoforms
 
 
@@ -10,7 +10,7 @@
 
 
 
-The Python code in this repository implements the HIquant algorythm for quantifying homologous proteins and proteoforms from bottom up mass-spec data. It is described and tested in:
+The Python code in this repository implements the HI*quant*  algorythm for quantifying homologous proteins and proteoforms from bottom up mass-spec data. It is described and tested in:
 
 Malioutov D., Chen T., Jaffe J., Airoldi E., Budnik B., Slavov N. [Quantifying homologous proteins and proteoforms Molecular & Cellular Proteomics](https://doi.org/10.1074/mcp.TIR118.000947), Volume 18, Issue 1, 162 - 168 doi: [10.1074/mcp.TIR118.000947](https://doi.org/10.1074/mcp.TIR118.000947)
 
@@ -34,7 +34,7 @@ For more information, contact [Slavov Laboratory](https://slavovlab.net) or dire
 
 ### License
 
-The plexDIA code is distributed by an [MIT license](https://github.com/SlavovLab/DO-MS/blob/master/LICENSE).
+The HI*quant* code is distributed by an [MIT license](https://github.com/SlavovLab/DO-MS/blob/master/LICENSE).
 
 ### Contributing
 
