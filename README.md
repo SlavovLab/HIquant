@@ -23,4 +23,18 @@ The script can be called from the command line and has 3 required arguments:
 3. Output file 2 - this has the confidence and error estimates for the inference
 
 An example command line call is:
-```ed$ python3 ~/Documents/GitHub/HIquant/HIquant_run.py '/Users/ed/Documents/GitHub/HIquant/TestData_fromMCP.txt' '/Users/ed/Documents/GitHub/HIquant/Results/MCP_Output_1.csv' '/Users/ed/Documents/GitHub/HIquant/Results/MCP_Output_2.csv' ```
+> ed$ python3 ~/Documents/GitHub/HIquant/HIquant_run.py '/Users/ed/Documents/GitHub/HIquant/TestData_fromMCP.txt' '/Users/ed/Documents/GitHub/HIquant/Results/MCP_Output_1.csv' '/Users/ed/Documents/GitHub/HIquant/Results/MCP_Output_2.csv'
+
+
+## About the project
+
+
+For more information, contact [Slavov Laboratory](https://slavovlab.net) or directly [Prof. Nikolai Slavov](https://coe.northeastern.edu/people/slavov-nikolai/)
+
+### License
+
+The plexDIA code is distributed by an [MIT license](https://github.com/SlavovLab/DO-MS/blob/master/LICENSE).
+
+### Contributing
+
+Please feel free to contribute to this project by opening an issue or pull request.
