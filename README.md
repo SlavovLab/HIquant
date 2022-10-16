@@ -6,6 +6,7 @@
 
 * [Slavov Lab](https://slavovlab.net)
 * [HIquant article](https://www.mcponline.org/article/S1535-9476(20)34108-6/fulltext)
+* [HIquant Website](https://scp.slavovlab.net/HIquant)
 
 
 
